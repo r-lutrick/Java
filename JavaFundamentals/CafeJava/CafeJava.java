@@ -12,12 +12,12 @@ public class CafeJava {
 
         String customer1 = "Cindhuri";
         String customer2 = "Sam";
-        String customer3 = "Jimmy";
+        // String customer3 = "Jimmy";
         String customer4 = "Noah";
 
         boolean isReadyOrder1 = false;
         boolean isReadyOrder2 = true;
-        boolean isReadyOrder3 = false;
+        // boolean isReadyOrder3 = false;
         boolean isReadyOrder4 = true;
 
         // Cindhuri
