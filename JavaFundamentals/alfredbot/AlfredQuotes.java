@@ -1,6 +1,5 @@
 import java.util.Date;
 
-import javax.lang.model.util.ElementScanner14;
 
 public class AlfredQuotes {
 
