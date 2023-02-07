@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 public class CafeUtil {
-    public static int getStreakGoal() {
+    
+    public int getStreakGoal() {
         int sum = 0;
         for (int i = 1; i < 11; i++) {
             sum += i;
@@ -9,7 +10,7 @@ public class CafeUtil {
         return sum;
     }
 
-    public static double getOrderTotal(double[] prices) {
+    public double getOrderTotal(double[] prices) {
         double sum = 0.0;
         for (double price : prices) {
             sum += price;
