@@ -1,4 +1,3 @@
-package JavaOOP.bank_account;
 
 import java.util.Random;
 
