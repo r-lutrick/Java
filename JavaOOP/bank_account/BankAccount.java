@@ -68,7 +68,7 @@ public class BankAccount {
 
     // TOTAL
     public double getTotalBalance() {
-        return this.savingsBalance + this.checkingBalance;
+        return getSavingsBalance() + getCheckingBalance();
     }
 
     // NINJA BONUS
