@@ -14,21 +14,25 @@
 <body style="background-color: #282828">
 	<div class="container container-fluid text-white">
 		<h1>Edit Book</h1>
-		<form:form modelAttribute="book" action="/book/${book.id}/update"
-			method="POST">
-			<input type="hidden" name="_method" value="put">
+		<form:form modelAttribute="book" action="/book/${book.id}/edit"
+			method="put">
+			<!-- <input type="hidden" name="_method" value="put">  -->
 			<!-- Title -->
-			<input class="form-control mb-3" type='text' value='${book.title}'
-				name='title'>
+			<form:errors path='title' class="text-danger"/>
+			<form:input class="form-control mb-3" type='text' value='${book.title}'
+				path='title'/>
 			<!-- Description -->
-			<input class="form-control mb-3" type='text'
-				value='${book.description }' name='description'>
+			<form:errors path='description' class="text-danger"/>
+			<form:input class="form-control mb-3" type='text'
+				value='${book.description }' path='description'/>
 			<!-- Language -->
-			<input class="form-control mb-3" type='text'
-				value='${book.language }' name='language'>
+			<form:errors path='language' class="text-danger"/>
+			<form:input class="form-control mb-3" type='text'
+				value='${book.language }' path='language'/>
 			<!-- Pages -->
-			<input class="form-control mb-3" type='number'
-				value='${book.numberOfPages }' name='numberOfPages'>
+			<form:errors path='numberOfPages' class="text-danger"/>
+			<form:input class="form-control mb-3" type='number'
+				value='${book.numberOfPages }' path='numberOfPages'/>
 			<button type='submit' class="btn btn-light">Update</button>
 		</form:form>
 		<form action="/book/${book.id}/delete" method="post">

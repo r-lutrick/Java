@@ -46,10 +46,10 @@ public class HomeController {
 	}
 
 //	CreateProcessing
-	@PostMapping("/process")
+	@PostMapping("/book/new")
 	public String createBook(@Valid @ModelAttribute("book") BookModel book, BindingResult result) {
 		if (result.hasErrors()) {
-			return "/book/new";
+			return "Create.jsp";
 		} else {
 			bookService.addBook(book);
 			return "redirect:/books";
@@ -58,17 +58,17 @@ public class HomeController {
 
 //	UpdateForm
 	@GetMapping("/book/{id}/edit")
-	public String updateBook(@PathVariable("id") Long id, Model model) {
+	public String editBook(@PathVariable("id") Long id, Model model) {
 		BookModel book = bookService.oneBook(id);
 		model.addAttribute("book", book);
 		return "Update.jsp";
 	}
 
 //	Update -- find one and create
-	@PutMapping("/book/{id}/update")
-	public String editBook(@Valid @ModelAttribute("book") BookModel book, BindingResult result) {
+	@PutMapping("/book/{id}/edit")
+	public String updateBook(@Valid @ModelAttribute("book") BookModel book, BindingResult result) {
 		if (result.hasErrors()) {
-			return "/books/edit.jsp";
+			return "Update.jsp";
 		} else {
 			bookService.updateBook(book);
 			return "redirect:/books";

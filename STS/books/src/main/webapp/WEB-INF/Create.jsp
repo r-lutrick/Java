@@ -14,17 +14,26 @@
 <body style="background-color: #282828">
 	<div class="container container-fluid text-white">
 		<h1>New Book</h1>
-		<form class="bg-transparent form-control p-3" action="/process" method="POST">
+		<form:form modelAttribute="book" action="/book/new" method="POST"
+			class="bg-transparent form-control p-3">
 			<!-- Title -->
-			<input class="form-control mb-3" type='text' placeholder='Title' name='title'>
+			<form:errors path='title' class="text-danger"/>
+			<form:input path='title' class="form-control mb-3" type='text'
+				placeholder='Title' />
 			<!-- Description -->
-			<input class="form-control mb-3" type='text' placeholder='Description' name='description'>
+			<form:errors path='description' class="text-danger"/>
+			<form:input path='description' class="form-control mb-3" type='text'
+				placeholder='Description' />
 			<!-- Language -->
-			<input class="form-control mb-3" type='text' placeholder='Language' name='language'>
+			<form:errors path='language' class="text-danger"/>
+			<form:input path='language' class="form-control mb-3" type='text'
+				placeholder='Language' />
 			<!-- Pages -->
-			<input class="form-control mb-3" type='number' placeholder='Pages' name='numberOfPages'>
+			<form:errors path='numberOfPages' class="text-danger"/>
+			<form:input path='numberOfPages' class="form-control mb-3"
+				type='number' placeholder='Pages' />
 			<button type='submit' class="btn btn-light">Create</button>
-		</form>
+		</form:form>
 	</div>
 	<script src="/webjars/jquery/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
