@@ -37,7 +37,7 @@ public class BookModel {
 	@NotNull
 	@Min(100)
 	private Integer numberOfPages;
-//  CREATED & UPDATED AT
+//  CREATED & UPDATED AT 
 	@Column(updatable = false) // This will not allow the createdAt column to be updated after creation
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdAt;
@@ -55,6 +55,7 @@ public class BookModel {
 		this.numberOfPages = numberOfPages;
 	}
 
+//	PRECURSORS
 	@PrePersist // always do something before we save an object
 	protected void onCreate() {
 		this.createdAt = new Date();
@@ -121,5 +122,4 @@ public class BookModel {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
 }

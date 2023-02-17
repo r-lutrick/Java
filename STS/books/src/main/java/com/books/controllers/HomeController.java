@@ -2,46 +2,55 @@ package com.books.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.books.models.BookModel;
 import com.books.services.BookService;
 
-@RestController
-@RequestMapping("/api")
-public class APIController {
-
-	private final BookService bookService;
-
-	public APIController(BookService bookService) {
-		this.bookService = bookService;
-	}
+@Controller
+public class HomeController {
+	@Autowired
+	private BookService bookService;
 
 //	Get all
 	@GetMapping("/books")
-	public List<BookModel> getAllDonations() {
-		return bookService.allBooks();
+	public String getAllDonations(Model model) {
+		List<BookModel> books = bookService.allBooks();
+		model.addAttribute("books", books);
+		return "Dashboard.jsp";
 	}
 
 //	Get one
 	@GetMapping("/book/{id}")
-	public BookModel getOneBook(@PathVariable("id") Long id) {
-		return bookService.oneBook(id);
+	public String getOneBook(@PathVariable("id") Long id, Model model) {
+		BookModel book = bookService.oneBook(id);
+		model.addAttribute("book", book);
+		return "Render.jsp";
+	}
+	
+//	CreateForm
+	@GetMapping("/book/new")
+	public String bookForm(@ModelAttribute("book") BookModel book) {
+		return "Create.jsp";
 	}
 
-//	Create
-	@PostMapping("/book/new")
-	public BookModel createBook(@RequestParam("title") String title, @RequestParam("description") String description,
-			@RequestParam("language") String language, @RequestParam("numberOfPages") Integer numberOfPages) {
-		BookModel newBook = new BookModel(title, description, language, numberOfPages);
-		return bookService.addBook(newBook);
+//	CreateProcessing
+	@PostMapping("/process")
+	public String createBook(@Valid @ModelAttribute("book") BookModel book, BindingResult result) {
+		bookService.addBook(book);
+		return "redirect:/books";
 	}
 
 //	Update -- find one and create
@@ -62,5 +71,4 @@ public class APIController {
 	public void removeBook(@PathVariable("id") Long id) {
 		bookService.deleteBook(id);
 	}
-
 }
