@@ -13,7 +13,7 @@
 </head>
 <body style="background-color: #282828">
 	<div class="container container-fluid text-white">
-		<h1>New Book!</h1>
+		<h1>New Book</h1>
 		<form class="bg-transparent form-control p-3" action="/process" method="POST">
 			<!-- Title -->
 			<input class="form-control mb-3" type='text' placeholder='Title' name='title'>

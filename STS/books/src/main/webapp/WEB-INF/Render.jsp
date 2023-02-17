@@ -13,7 +13,7 @@
 </head>
 <body style="background-color: #282828">
 <div class="container container-fluid text-white">
-		<h1>Book Detail!</h1>
+		<h1>Book Info</h1>
 		<h3>
 			<c:out value="${book.title}" />
 		</h3>
@@ -26,6 +26,7 @@
 		<p>
 			<c:out value="${book.numberOfPages }" />
 		</p>
+		<a class="btn btn-light" href="/book/${book.id}/edit">Edit</a>
 	</div>
 	<script src="/webjars/jquery/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>

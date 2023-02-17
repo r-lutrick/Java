@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.books.models.BookModel;
 import com.books.services.BookService;
@@ -39,7 +38,7 @@ public class HomeController {
 		model.addAttribute("book", book);
 		return "Render.jsp";
 	}
-	
+
 //	CreateForm
 	@GetMapping("/book/new")
 	public String bookForm(@ModelAttribute("book") BookModel book) {
@@ -49,26 +48,37 @@ public class HomeController {
 //	CreateProcessing
 	@PostMapping("/process")
 	public String createBook(@Valid @ModelAttribute("book") BookModel book, BindingResult result) {
-		bookService.addBook(book);
-		return "redirect:/books";
+		if (result.hasErrors()) {
+			return "/book/new";
+		} else {
+			bookService.addBook(book);
+			return "redirect:/books";
+		}
+	}
+
+//	UpdateForm
+	@GetMapping("/book/{id}/edit")
+	public String updateBook(@PathVariable("id") Long id, Model model) {
+		BookModel book = bookService.oneBook(id);
+		model.addAttribute("book", book);
+		return "Update.jsp";
 	}
 
 //	Update -- find one and create
-	@PutMapping("/book/{id}")
-	public BookModel editBook(@PathVariable("id") Long id, @RequestParam("title") String title,
-			@RequestParam("description") String description, @RequestParam("language") String language,
-			@RequestParam("numberOfPages") Integer numberOfPages) {
-		BookModel foundBook = bookService.oneBook(id);
-		foundBook.setTitle(title);
-		foundBook.setDescription(description);
-		foundBook.setLanguage(language);
-		foundBook.setNumberOfPages(numberOfPages);
-		return bookService.updateBook(foundBook);
+	@PutMapping("/book/{id}/update")
+	public String editBook(@Valid @ModelAttribute("book") BookModel book, BindingResult result) {
+		if (result.hasErrors()) {
+			return "/books/edit.jsp";
+		} else {
+			bookService.updateBook(book);
+			return "redirect:/books";
+		}
 	}
 
 //	Delete -- find one and remove
-	@DeleteMapping("/book/{id}")
-	public void removeBook(@PathVariable("id") Long id) {
+	@DeleteMapping("/book/{id}/delete")
+	public String removeBook(@PathVariable("id") Long id) {
 		bookService.deleteBook(id);
+		return "redirect:/books";
 	}
 }

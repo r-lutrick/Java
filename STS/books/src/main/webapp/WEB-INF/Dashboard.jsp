@@ -18,7 +18,7 @@ tr {
 </head>
 <body style="background-color: #282828">
 	<div class="container container-fluid text-white">
-		<h1>All Books!</h1>
+		<h1>All the Books!</h1>
 		<table class="table table-light">
 			<thead>
 				<tr>
