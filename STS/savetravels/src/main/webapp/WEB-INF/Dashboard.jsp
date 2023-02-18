@@ -26,10 +26,14 @@
 			<tbody>
 				<c:forEach var="expense" items="${expenses}">
 					<tr>
-						<td><c:out value="${expense.name}" /></td>
+						<td><a href="/expense/${expense.id}"><c:out value="${expense.name}" /></a></td>
 						<td><c:out value="${expense.vendor}" /></td>
 						<td><c:out value="$ ${expense.amount}" /></td>
-						<td><a href="/expense/edit/${expense.id}" class="mx-3">Edit</a><a href="/book/delete/${expense.id}" class="btn btn-danger">Delete</a></td>
+						<td><a href="/expense/edit/${expense.id}" class="mx-3">Edit</a>
+							<form action="/book/delete/${expense.id}" method="post">
+								<input type="hidden" name="_method" value="delete"> <input
+									class="btn btn-danger" type="submit" value="Delete">
+							</form></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -37,7 +41,8 @@
 	</div>
 	<div class="container container-fluid">
 		<h2>Add an expense:</h2>
-		<form:form modelAttribute="expense" action="/expense/new" class="form-control p-3" method='POST'>
+		<form:form modelAttribute="expense" action="/expense/new"
+			class="form-control p-3" method='POST'>
 			<div>
 				<form:label path="name">Expense Name:</form:label>
 				<form:errors path="name" class="text-danger" />
@@ -56,8 +61,10 @@
 			<div>
 				<form:label path="description">Description:</form:label>
 				<form:errors path="description" class="text-danger" />
-				<form:textarea path="description" class="form-control mb-3" type='text' />
+				<form:textarea path="description" class="form-control mb-3"
+					type='text' />
 			</div>
+
 			<button class="btn btn-primary" type="submit">Submit</button>
 		</form:form>
 	</div>

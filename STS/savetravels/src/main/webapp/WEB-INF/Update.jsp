@@ -18,7 +18,7 @@
 			<a href="/dashboard">Go back</a>
 		</div>
 		<div>
-			<form:form modelAttribute="expense" action="/expense/edit/{id}"
+			<form:form modelAttribute="expense" action="/expense/edit/${expense.id}"
 				method="post" class="form-control p-3" >
 				<input type="hidden" name="_method" value="put">
 				<div>

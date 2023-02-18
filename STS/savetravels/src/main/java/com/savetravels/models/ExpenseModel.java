@@ -1,6 +1,5 @@
 package com.savetravels.models;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
