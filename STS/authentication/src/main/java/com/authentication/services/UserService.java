@@ -17,56 +17,56 @@ public class UserService {
 	private UserRepository userRepo;
 	
 	public User register(User newUser, BindingResult result) {
-//		1.find user in the db by email
+		// find user in the db by email
 		Optional<User> optionalUser = userRepo.findByEmail(newUser.getEmail());
 		
-//		2. if the email is present, reject
-		if(optionalUser.isPresent()) {
+		if(optionalUser.isPresent()) { // if the email is present, reject
 			result.rejectValue("email", "unique", "Email is already registered, please login");
 		}
 		
-//		3. reject if password doesn't match confirm
-		if(!newUser.getPassword().equals(newUser.getConfirm())) {
+		if(!newUser.getPassword().equals(newUser.getConfirm())) { // reject if password doesn't match confirm
 			result.rejectValue("confirm", "Matches", "The Confirm Password does not match");
 		}
 		
-//		4. if result has errors, return
-		if(result.hasErrors()) {
+		if(result.hasErrors()) { // if result has errors, return
 			return null;
 		}
 		
-//		hash and set password, save use to db (HpSpSu)
 		String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt()); //hash pass
 		newUser.setPassword(hashed);//set pass
 		userRepo.save(newUser);//save user
 		
-//		return to controller after validations
 		return newUser;
 	}
 	
     public User login(LoginUser newLogin, BindingResult result) {
-//    	1. find user by email in db    	
+    	// find user by email in db    	
     	Optional<User> optionalUser = userRepo.findByEmail(newLogin.getEmail());
 
-//    	2. if the email is not present reject
-		if(!optionalUser.isPresent()) {
+		if(!optionalUser.isPresent()) { // if the email is not present reject
 			result.rejectValue("email", "Unknown", "Email is not registered, please register");
 			return null;
 		}
 		
-//    	3.1 grab the user from potential user
-		User user = optionalUser.get();
-//    	3.2 if bcrypt password match fails
-		if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) { // input first, db second
+		User user = optionalUser.get(); // grab the user from potential user
+		if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) { // checkpw(input, DB)
 		    result.rejectValue("password", "Matches", "Invalid Password");
 		}
 		
-//    	4. if result has errors, return
-		if(result.hasErrors()) {
+		if(result.hasErrors()) { // if result has errors, return
 			return null;
 		}
-		
-//    	otherwise, return the user object    	
+		    	
         return user;
+    }
+    
+//  RENDER 
+    //one
+    public User oneUser(Long id) {
+    	Optional<User> optionalUser = userRepo.findById(id);
+    	if(optionalUser.isPresent()) {
+    		return optionalUser.get();
+    	}
+    	return null;
     }
 }
