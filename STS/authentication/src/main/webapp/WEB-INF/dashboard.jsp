@@ -8,12 +8,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Book Club</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 </head>
-<body>
-	<div class="container">
-		<h1>Dashboard</h1>
+<body style="background-color: #e7e7e7;">
+	<h1 class="mb-3 px-4 pb-3 pt-2 bg-white border">
+		<i class="text-success">Book</i><b class="text-info">Club</b>
+	</h1>
+	<div class="container container-fluid">
 		
 	</div>
 	
